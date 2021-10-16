@@ -59,7 +59,7 @@ if __name__ == "__main__":
     parser.add_argument('--env',        default='hover',      type=str,             choices=['takeoff', 'hover', 'flythrugate', 'tune'], help='Task (default: hover)', metavar='')
     parser.add_argument('--algo',       default='ppo',        type=str,             choices=['a2c', 'ppo', 'sac', 'td3', 'ddpg'],        help='RL agent (default: ppo)', metavar='')
     parser.add_argument('--obs',        default='kin',        type=ObservationType,                                                      help='Observation space (default: kin)', metavar='')
-    parser.add_argument('--act',        default='one_d_rpm',  type=ActionType,                                                           help='Action space (default: one_d_rpm)', metavar='')
+    parser.add_argument('--act',        default='rpm',  type=ActionType,                                                           help='Action space (default: one_d_rpm)', metavar='')
     parser.add_argument('--cpu',        default='1',          type=int,                                                                  help='Number of training environments (default: 1)', metavar='')        
     ARGS = parser.parse_args()
 
@@ -207,7 +207,7 @@ if __name__ == "__main__":
                                     n_envs=1,
                                     seed=0
                                     )
-        if env_nam == "hover-aviary-v0": 
+        if env_name == "hover-aviary-v0":
             eval_env = make_vec_env(HoverAviary,
                                     env_kwargs=sa_env_kwargs,
                                     n_envs=1,
@@ -241,7 +241,7 @@ if __name__ == "__main__":
                                  deterministic=True,
                                  render=False
                                  )
-    model.learn(total_timesteps=35000, #int(1e12),
+    model.learn(total_timesteps=1e7, #int(1e12),
                 callback=eval_callback,
                 log_interval=100,
                 )
